@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cuestionario — Iluminnox</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--y:#F5C400;--yd:#c99d00;--bk:#0f0f0f;--dk:#1a1a1a;--cd:#242424;--br:#333;--tx:#f0f0f0;--mt:#888;--r:10px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bk);color:var(--tx);font-family:'Barlow',sans-serif;font-size:15px;min-height:100vh}
+.hero{background:var(--dk);border-bottom:3px solid var(--y);padding:2rem 1.5rem 1.5rem;text-align:center}
+.logo{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,6vw,3.5rem);font-weight:900;color:var(--y);letter-spacing:2px;line-height:1;margin-bottom:6px}
+.htag{font-size:13px;color:var(--mt);letter-spacing:1px;text-transform:uppercase;margin-bottom:1.5rem}
+.htitle{font-size:clamp(1.1rem,3vw,1.4rem);font-weight:500;color:var(--tx);max-width:520px;margin:0 auto 8px;line-height:1.4}
+.hsub{font-size:13px;color:var(--mt);max-width:480px;margin:0 auto;line-height:1.6}
+.prog-w{position:sticky;top:0;z-index:10;background:var(--dk);border-bottom:1px solid var(--br);padding:10px 1.5rem;display:flex;align-items:center;gap:12px}
+.prog-b{flex:1;height:4px;background:var(--br);border-radius:99px;overflow:hidden}
+.prog-f{height:100%;background:var(--y);border-radius:99px;transition:width .4s ease}
+.prog-t{font-size:12px;color:var(--mt);white-space:nowrap}
+.main{max-width:660px;margin:0 auto;padding:2rem 1.5rem 4rem}
+.id-card{background:var(--cd);border:1px solid var(--br);border-radius:var(--r);padding:1.75rem;margin-bottom:1rem}
+.id-card h2{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:700;color:var(--y);margin-bottom:6px;letter-spacing:.5px}
+.id-card p{font-size:13px;color:var(--mt);margin-bottom:1.5rem;line-height:1.6}
+.fg{margin-bottom:1.25rem}
+.fg label{display:block;font-size:12px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--y);margin-bottom:8px}
+.fg input{width:100%;background:#1e1e1e;border:1px solid var(--br);border-radius:8px;color:var(--tx);font-family:'Barlow',sans-serif;font-size:15px;padding:13px 14px;transition:border-color .15s}
+.fg input:focus{outline:none;border-color:var(--y)}
+.fg input::placeholder{color:#555}
+.ferr{font-size:12px;color:#e05;margin-top:6px;display:none}
+.sec-lbl{display:flex;align-items:center;gap:10px;margin-bottom:1.25rem}
+.sec-lbl span{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--y)}
+.sec-lbl::after{content:'';flex:1;height:1px;background:var(--br)}
+.qcard{background:var(--cd);border:1px solid var(--br);border-radius:var(--r);padding:1.5rem;margin-bottom:1rem;animation:fi .25s ease}
+.qnum{font-size:10px;font-weight:600;letter-spacing:1px;color:var(--y);text-transform:uppercase;margin-bottom:8px}
+.qtext{font-size:15px;font-weight:500;color:var(--tx);line-height:1.5;margin-bottom:6px}
+.qhint{font-size:12px;color:var(--mt);margin-bottom:1rem;font-style:italic}
+.chip{display:inline-flex;align-items:center;gap:6px;background:rgba(245,196,0,.1);border:1px solid rgba(245,196,0,.25);border-radius:99px;padding:4px 12px;font-size:12px;color:var(--y);margin-bottom:1.5rem}
+.chip span{color:var(--mt)}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;align-items:center;gap:12px;padding:11px 14px;border:1px solid var(--br);border-radius:8px;cursor:pointer;transition:all .15s;background:transparent}
+.opt:hover{border-color:var(--y);background:rgba(245,196,0,.06)}
+.opt input{accent-color:var(--y);width:16px;height:16px;flex-shrink:0;cursor:pointer}
+.opt-lbl{font-size:14px;color:var(--tx)}
+.opt.ck{border-color:var(--y);background:rgba(245,196,0,.08)}
+.stars{display:flex;gap:8px;flex-wrap:wrap}
+.si{text-align:center}
+.sb{width:48px;height:48px;border:1px solid var(--br);border-radius:8px;background:transparent;color:var(--mt);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.sb:hover,.sb.on{border-color:var(--y);color:var(--y);background:rgba(245,196,0,.1)}
+.sn{font-size:11px;color:var(--mt);margin-top:4px}
+.sd{font-size:12px;color:var(--y);margin-top:8px;min-height:18px}
+.nps{display:flex;gap:6px;flex-wrap:wrap}
+.nb{min-width:46px;height:42px;border:1px solid var(--br);border-radius:8px;background:transparent;color:var(--tx);font-size:14px;font-weight:500;cursor:pointer;font-family:'Barlow',sans-serif;transition:all .15s;flex:1}
+.nb:hover{border-color:var(--y)}
+.nb.on{background:var(--y);border-color:var(--y);color:var(--bk);font-weight:700}
+.nhints{display:flex;justify-content:space-between;margin-top:6px;font-size:11px;color:var(--mt)}
+textarea{width:100%;background:#1e1e1e;border:1px solid var(--br);border-radius:8px;color:var(--tx);font-family:'Barlow',sans-serif;font-size:14px;padding:12px 14px;resize:vertical;line-height:1.6;transition:border-color .15s}
+textarea:focus{outline:none;border-color:var(--y)}
+textarea::placeholder{color:#555}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:2rem;gap:12px}
+.bbk{padding:11px 22px;border:1px solid var(--br);border-radius:8px;background:transparent;color:var(--mt);font-size:14px;font-family:'Barlow',sans-serif;cursor:pointer;transition:all .15s}
+.bbk:hover{border-color:#555;color:var(--tx)}
+.bnx{padding:12px 32px;border:none;border-radius:8px;background:var(--y);color:var(--bk);font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:.5px;cursor:pointer;transition:all .15s}
+.bnx:hover{background:var(--yd)}
+.bnx:disabled{opacity:.35;cursor:not-allowed}
+.ty{text-align:center;padding:3rem 1rem}
+.ty-bolt{font-size:3rem;margin-bottom:1rem}
+.ty-title{font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;color:var(--y);margin-bottom:8px;letter-spacing:1px}
+.ty-sub{font-size:14px;color:var(--mt);line-height:1.7;max-width:420px;margin:0 auto 2rem}
+.ty-sum{background:var(--cd);border:1px solid var(--br);border-radius:var(--r);padding:1.25rem 1.5rem;text-align:left;margin-bottom:1.5rem}
+.ty-sum h3{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--y);margin-bottom:1rem}
+.sr{display:flex;gap:8px;padding:8px 0;border-bottom:1px solid #2a2a2a;font-size:13px;line-height:1.5}
+.sr:last-child{border-bottom:none}
+.sl{color:var(--mt);min-width:140px;flex-shrink:0}
+.sv{color:var(--tx)}
+.tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:99px;background:rgba(245,196,0,.12);border:1px solid rgba(245,196,0,.3);color:var(--y);margin:2px}
+.cbox{background:rgba(245,196,0,.06);border:1px solid rgba(245,196,0,.2);border-radius:var(--r);padding:1.25rem 1.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;text-align:left}
+.ci{font-size:13px;color:var(--mt);line-height:1.8}
+.ci strong{color:var(--y);display:block;font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
+.spin{display:inline-block;width:16px;height:16px;border:2px solid rgba(0,0,0,.3);border-top-color:var(--bk);border-radius:50%;animation:sp .7s linear infinite;vertical-align:middle;margin-right:6px}
+@keyframes sp{to{transform:rotate(360deg)}}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:480px){.nb{min-width:36px;font-size:13px}.sb{width:40px;height:40px;font-size:18px}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="logo">ILUMINNOX</div>
+  <div class="htag">León, Guanajuato · México</div>
+  <div class="htitle">Tu opinión es nuestra mejor herramienta</div>
+  <div class="hsub">Tómate 3 minutos para ayudarnos a servirte mejor. Tus respuestas son confidenciales.</div>
+</div>
+<div class="prog-w">
+  <div class="prog-b"><div class="prog-f" id="pf" style="width:0%"></div></div>
+  <div class="prog-t" id="pt">Identificación</div>
+</div>
+<div class="main"><div id="app"></div></div>
+<script>
+const SCRIPT_URL='TU_SCRIPT_URL_AQUI';
+const sections=[
+  {label:'Experiencia general',questions:[
+    {id:'q1',type:'radio',num:'01',q:'¿Cuánto tiempo llevas trabajando con Iluminnox?',opts:['Menos de 6 meses','De 6 meses a 1 año','1 a 3 años','Más de 3 años']},
+    {id:'q2',type:'radio',num:'02',q:'¿En qué tipo de proyectos utilizas principalmente nuestros productos?',opts:['Naves industriales / bodegas','Corporativos / oficinas','Residencial / comercial','Instituciones públicas','Proyectos mixtos']},
+    {id:'q3',type:'stars',num:'03',q:'¿Qué tan satisfecho estás con la calidad de los productos que hemos suministrado?',hint:'1 = Muy insatisfecho · 5 = Muy satisfecho',labels:['Muy insatisfecho','Insatisfecho','Regular','Satisfecho','Muy satisfecho']}
+  ]},
+  {label:'Servicio y logística',questions:[
+    {id:'q4',type:'stars',num:'04',q:'¿Cómo calificarías nuestro tiempo de respuesta en cotizaciones?',hint:'1 = Muy lento · 5 = Muy rápido',labels:['Muy lento','Lento','Aceptable','Rápido','Muy rápido']},
+    {id:'q5',type:'radio',num:'05',q:'¿Has experimentado alguno de estos problemas al trabajar con nosotros?',hint:'Selecciona el que más haya impactado tu proyecto',opts:['Retrasos en entrega','Material mal especificado','Falta de stock','Dificultad para cotizar','Ninguno — todo ha funcionado bien']},
+    {id:'q6',type:'stars',num:'06',q:'¿Cómo calificarías la asesoría técnica que recibes de nuestro equipo?',hint:'1 = Nula / mala · 5 = Excelente',labels:['Nula','Insuficiente','Regular','Buena','Excelente']}
+  ]},
+  {label:'Propuesta de valor',questions:[
+    {id:'q7',type:'check',num:'07',q:'¿Qué aspectos de Iluminnox valoras más?',hint:'Puedes seleccionar más de uno',opts:['Precios competitivos','Variedad de productos','Entrega rápida / stock disponible','Asesoría técnica especializada','Cumplimiento de normas NOM','Atención personalizada']},
+    {id:'q8',type:'radio',num:'08',q:'¿Conocías nuestros postes con entrega inmediata (24–48 hrs)?',opts:['Sí, ya los he comprado','Sí, pero no los he comprado','No lo sabía — me interesa conocer más','No lo necesito']},
+    {id:'q9',type:'radio',num:'09',q:'¿Has considerado adquirir soluciones de Energía Renovable con Iluminnox?',opts:['Sí, ya lo hemos platicado','Me interesa pero no hemos avanzado','No había considerado esa opción','No aplica para mis proyectos']}
+  ]},
+  {label:'Oportunidad y reactivación',questions:[
+    {id:'q10',type:'radio',num:'10',q:'¿Con qué frecuencia tienes proyectos donde requieres material eléctrico o iluminación?',opts:['Tengo proyectos activos ahora mismo','Cada 1 a 3 meses','Cada 3 a 6 meses','Menos frecuente / sin proyectos activos']},
+    {id:'q11',type:'nps',num:'11',q:'Del 1 al 10, ¿qué tan probable es que recomiendes Iluminnox a un colega o socio?'},
+    {id:'q12',type:'textarea',num:'12',q:'¿Qué podríamos mejorar o qué necesitarías para reactivar o aumentar tus compras?',hint:'Tu respuesta es confidencial y llega directo a nuestro equipo comercial'}
+  ]}
+];
+const allQ=sections.flatMap(s=>s.questions);
+const totalQ=allQ.length;
+let answers={},respondent={empresa:'',nombre:''},phase='id',cs=0,cq=0;
+function gi(){let i=0;for(let s=0;s<cs;s++)i+=sections[s].questions.length;return i+cq;}
+function upProg(){
+  const f=document.getElementById('pf'),t=document.getElementById('pt');
+  if(phase==='id'){f.style.width='0%';t.textContent='Identificación';}
+  else if(phase==='done'){f.style.width='100%';t.textContent=totalQ+' / '+totalQ;}
+  else{const g=gi();f.style.width=Math.round(g/totalQ*100)+'%';t.textContent=g+' / '+totalQ;}
+}
+function render(){upProg();if(phase==='id')rID();else if(phase==='done')rTY();else rQ();}
+function rID(){
+  document.getElementById('app').innerHTML=`
+  <div class="id-card">
+    <h2>⚡ Antes de comenzar</h2>
+    <p>Por favor indícanos de qué empresa vienes y tu nombre. Esto nos ayuda a darte un mejor seguimiento personalizado.</p>
+    <div class="fg"><label>Empresa / Compañía <span style="color:#e05">*</span></label>
+      <input type="text" id="ie" placeholder="Ej: Constructora Nortag SA de CV" value="${respondent.empresa}" maxlength="120">
+      <div class="ferr" id="ee">Este campo es requerido</div></div>
+    <div class="fg"><label>Tu nombre <span style="color:#e05">*</span></label>
+      <input type="text" id="in" placeholder="Ej: Carlos López" value="${respondent.nombre}" maxlength="80">
+      <div class="ferr" id="en">Este campo es requerido</div></div>
+  </div>
+  <div class="nav"><span></span><button class="bnx" id="bs">Comenzar cuestionario →</button></div>`;
+  document.getElementById('bs').onclick=()=>{
+    const e=document.getElementById('ie').value.trim(),n=document.getElementById('in').value.trim();
+    let ok=true;
+    document.getElementById('ee').style.display=e?'none':'block';if(!e)ok=false;
+    document.getElementById('en').style.display=n?'none':'block';if(!n)ok=false;
+    if(!ok)return;
+    respondent={empresa:e,nombre:n};phase='questions';window.scrollTo({top:0,behavior:'smooth'});render();
+  };
+  ['ie','in'].forEach(id=>document.getElementById(id).addEventListener('keydown',ev=>{if(ev.key==='Enter')document.getElementById('bs').click();}));
+}
+function isAns(q){
+  if(q.type==='radio')return!!answers[q.id];
+  if(q.type==='check')return(answers[q.id]||[]).length>0;
+  if(q.type==='stars')return!!answers[q.id];
+  if(q.type==='nps')return!!answers[q.id];
+  if(q.type==='textarea')return!!(answers[q.id]||'').trim();
+  return false;
+}
+function rQ(){
+  const g=gi(),sec=sections[cs],q=sec.questions[cq],isF=g===0,isL=g===totalQ-1;
+  let h=`<div class="chip"><span>Respondiendo como</span>${respondent.nombre} · ${respondent.empresa}</div>
+  <div class="sec-lbl"><span>${sec.label}</span></div>
+  <div class="qcard"><div class="qnum">Pregunta ${q.num} de ${totalQ}</div>
+  <div class="qtext">${q.q}</div>${q.hint?`<div class="qhint">${q.hint}</div>`:''}`;
+  if(q.type==='radio'){
+    h+=`<div class="opts">`;
+    q.opts.forEach(o=>{const c=answers[q.id]===o;h+=`<label class="opt${c?' ck':''}"><input type="radio" name="${q.id}" value="${o}"${c?' checked':''}><span class="opt-lbl">${o}</span></label>`;});
+    h+=`</div>`;
+  }
+  if(q.type==='check'){
+    h+=`<div class="opts">`;
+    q.opts.forEach(o=>{const c=(answers[q.id]||[]).includes(o);h+=`<label class="opt${c?' ck':''}"><input type="checkbox" name="${q.id}" value="${o}"${c?' checked':''}><span class="opt-lbl">${o}</span></label>`;});
+    h+=`</div>`;
+  }
+  if(q.type==='stars'){
+    const v=answers[q.id]||0;
+    h+=`<div class="stars">`;
+    for(let i=1;i<=5;i++)h+=`<div class="si"><button class="sb${v===i?' on':''}" data-q="${q.id}" data-v="${i}">★</button><div class="sn">${i}</div></div>`;
+    h+=`</div><div class="sd">${v?q.labels[v-1]:''}</div>`;
+  }
+  if(q.type==='nps'){
+    const v=answers[q.id]||0;
+    h+=`<div class="nps">`;
+    for(let i=1;i<=10;i++)h+=`<button class="nb${v===i?' on':''}" data-q="${q.id}" data-v="${i}">${i}</button>`;
+    h+=`</div><div class="nhints"><span>Poco probable</span><span>Muy probable</span></div>`;
+  }
+  if(q.type==='textarea')h+=`<textarea id="ta" rows="4" placeholder="Escribe aquí tu respuesta...">${answers[q.id]||''}</textarea>`;
+  h+=`</div><div class="nav">
+    <button class="bbk" id="bk">${isF?'← Volver':'← Anterior'}</button>
+    <button class="bnx" id="bn"${isAns(q)?'':' disabled'}>${isL?'Enviar respuestas →':'Siguiente →'}</button>
+  </div>`;
+  document.getElementById('app').innerHTML=h;
+  document.querySelectorAll(`input[name="${q.id}"]`).forEach(inp=>inp.addEventListener('change',()=>{
+    if(q.type==='radio')answers[q.id]=inp.value;
+    else{let a=answers[q.id]||[];answers[q.id]=inp.checked?[...a,inp.value]:a.filter(x=>x!==inp.value);}
+    render();
+  }));
+  document.querySelectorAll('.sb').forEach(b=>b.addEventListener('click',()=>{answers[b.dataset.q]=parseInt(b.dataset.v);render();}));
+  document.querySelectorAll('.nb').forEach(b=>b.addEventListener('click',()=>{answers[b.dataset.q]=parseInt(b.dataset.v);render();}));
+  const ta=document.getElementById('ta');
+  if(ta)ta.addEventListener('input',()=>{answers[q.id]=ta.value;document.getElementById('bn').disabled=!ta.value.trim();});
+  document.getElementById('bn').onclick=()=>{if(ta)answers[q.id]=ta.value;if(isL){send();return;}adv(1);};
+  document.getElementById('bk').onclick=()=>{if(isF){phase='id';render();return;}adv(-1);};
+}
+function adv(d){
+  const g=gi()+d;let idx=0;
+  for(let s=0;s<sections.length;s++){
+    if(g<idx+sections[s].questions.length){cs=s;cq=g-idx;break;}
+    idx+=sections[s].questions.length;
+  }
+  window.scrollTo({top:0,behavior:'smooth'});render();
+}
+async function send(){
+  const b=document.getElementById('bn');
+  b.disabled=true;b.innerHTML='<span class="spin"></span> Enviando...';
+  try{
+    if(SCRIPT_URL!=='https://script.google.com/macros/s/AKfycbyHooWgThOMKRU7qREE-FwTnplg7wQWzq_XZdc1P4aTz8vkMzKNY5o1Qd9F_kHKRODT/exec'){
+      await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({empresa:respondent.empresa,nombre:respondent.nombre,...answers})});
+    }
+    phase='done';window.scrollTo({top:0,behavior:'smooth'});render();
+  }catch(e){b.disabled=false;b.innerHTML='Enviar respuestas →';alert('Error al enviar. Por favor intenta de nuevo.');}
+}
+function rTY(){
+  const nps=answers['q11']||0;
+  const nl=nps>=9?'⭐ Promotor':nps>=7?'😐 Neutro':nps?'⚠️ Detractor':'—';
+  const q3s='★'.repeat(answers['q3']||0)+'☆'.repeat(5-(answers['q3']||0));
+  const q6s='★'.repeat(answers['q6']||0)+'☆'.repeat(5-(answers['q6']||0));
+  const q7t=(answers['q7']||[]).map(t=>`<span class="tag">${t}</span>`).join('')||'—';
+  document.getElementById('app').innerHTML=`
+  <div class="ty">
+    <div class="ty-bolt">⚡</div>
+    <div class="ty-title">¡Gracias, ${respondent.nombre.split(' ')[0]}!</div>
+    <div class="ty-sub">Las respuestas de <strong style="color:var(--y)">${respondent.empresa}</strong> ya llegaron a nuestro equipo. Te contactaremos pronto.</div>
+    <div class="ty-sum"><h3>Resumen</h3>
+      <div class="sr"><span class="sl">Empresa</span><span class="sv">${respondent.empresa}</span></div>
+      <div class="sr"><span class="sl">Contacto</span><span class="sv">${respondent.nombre}</span></div>
+      <div class="sr"><span class="sl">Satisfacción producto</span><span class="sv">${q3s} (${answers['q3']||'—'}/5)</span></div>
+      <div class="sr"><span class="sl">Asesoría técnica</span><span class="sv">${q6s} (${answers['q6']||'—'}/5)</span></div>
+      <div class="sr"><span class="sl">NPS</span><span class="sv">${answers['q11']||'—'}/10 — ${nl}</span></div>
+      <div class="sr"><span class="sl">Lo que más valoras</span><span class="sv">${q7t}</span></div>
+      <div class="sr"><span class="sl">Proyectos actuales</span><span class="sv">${answers['q10']||'—'}</span></div>
+      ${answers['q12']?`<div class="sr"><span class="sl">Comentario</span><span class="sv" style="font-style:italic">"${answers['q12']}"</span></div>`:''}
+    </div>
+    <div class="cbox">
+      <div class="ci"><strong>WhatsApp</strong>+52 477 309 3078</div>
+      <div class="ci"><strong>Teléfono</strong>+52 477 555 5286</div>
+      <div class="ci"><strong>Correo</strong>ventas2@iluminnox.com</div>
+      <div class="ci"><strong>Web</strong>iluminnox.com</div>
+    </div>
+  </div>`;
+}
+render();
+</script>
+</body>
+</html>
