@@ -96,10 +96,7 @@ textarea::placeholder{color:#555}
 </div>
 <div class="main"><div id="app"></div></div>
 <script>
-// ---------- AQUÍ PONES TU CORREO REAL ----------
-const SCRIPT_URL = 'https://formsubmit.co/ajax/ventas2@iluminnox.com';
-// -----------------------------------------------
-
+const SCRIPT_URL='https://script.google.com/macros/s/AKfycbyHooWgThOMKRU7qREE-FwTnplg7wQWzq_XZdc1P4aTz8vkMzKNY5o1Qd9F_kHKRODT/exec';
 const sections=[
   {label:'Experiencia general',questions:[
     {id:'q1',type:'radio',num:'01',q:'¿Cuánto tiempo llevas trabajando con Iluminnox?',opts:['Menos de 6 meses','De 6 meses a 1 año','1 a 3 años','Más de 3 años']},
@@ -218,39 +215,16 @@ function adv(d){
   }
   window.scrollTo({top:0,behavior:'smooth'});render();
 }
-
-// ----- FUNCIÓN SEND CORREGIDA PARA FORMSUBMIT -----
 async function send(){
   const b=document.getElementById('bn');
-  b.disabled=true;
-  b.innerHTML='<span class="spin"></span> Enviando...';
-  
-  try {
-    await fetch(SCRIPT_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        empresa: respondent.empresa, 
-        nombre: respondent.nombre, 
-        ...answers
-      })
-    });
-    
-    phase='done';
-    window.scrollTo({top:0,behavior:'smooth'});
-    render();
-    
-  } catch(e) {
-    b.disabled=false;
-    b.innerHTML='Enviar respuestas →';
-    alert('Error al enviar. Por favor revisa tu conexión e intenta de nuevo.');
-  }
+  b.disabled=true;b.innerHTML='<span class="spin"></span> Enviando...';
+  try{
+    if(SCRIPT_URL!=='https://script.google.com/macros/s/AKfycbyHooWgThOMKRU7qREE-FwTnplg7wQWzq_XZdc1P4aTz8vkMzKNY5o1Qd9F_kHKRODT/exec'){
+      await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({empresa:respondent.empresa,nombre:respondent.nombre,...answers})});
+    }
+    phase='done';window.scrollTo({top:0,behavior:'smooth'});render();
+  }catch(e){b.disabled=false;b.innerHTML='Enviar respuestas →';alert('Error al enviar. Por favor intenta de nuevo.');}
 }
-// --------------------------------------------------
-
 function rTY(){
   const nps=answers['q11']||0;
   const nl=nps>=9?'⭐ Promotor':nps>=7?'😐 Neutro':nps?'⚠️ Detractor':'—';
