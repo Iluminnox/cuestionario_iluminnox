@@ -219,11 +219,20 @@ async function send(){
   const b=document.getElementById('bn');
   b.disabled=true;b.innerHTML='<span class="spin"></span> Enviando...';
   try{
-    if(SCRIPT_URL!=='https://script.google.com/macros/s/AKfycbyHooWgThOMKRU7qREE-FwTnplg7wQWzq_XZdc1P4aTz8vkMzKNY5o1Qd9F_kHKRODT/exec'){
-      await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({empresa:respondent.empresa,nombre:respondent.nombre,...answers})});
-    }
-    phase='done';window.scrollTo({top:0,behavior:'smooth'});render();
-  }catch(e){b.disabled=false;b.innerHTML='Enviar respuestas →';alert('Error al enviar. Por favor intenta de nuevo.');}
+    // Solo enviamos el método y el body (el navegador lo mandará como texto plano por defecto)
+    await fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify({empresa: respondent.empresa, nombre: respondent.nombre, ...answers})
+    });
+    
+    phase='done';
+    window.scrollTo({top:0,behavior:'smooth'});
+    render();
+  } catch(e) {
+    b.disabled=false;
+    b.innerHTML='Enviar respuestas →';
+    alert('Error al enviar. Por favor revisa tu conexión e intenta de nuevo.');
+  }
 }
 function rTY(){
   const nps=answers['q11']||0;
